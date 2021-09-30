@@ -393,39 +393,38 @@
             </div>
             <!-- End of Main Content -->
             <script>
-                $(document).ready(function () {
-                    var bossName = ["오레하 노말", "오레하 하드", "아르고스 1페", "아르고스 2페", "아르고스 3페", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드"]
-                    fetch('https://3359jun.pythonanywhere.com/party')
-                        .then(function (response) {
-                            return response.json();
-                        })
-                        .then(function (myJson) {
-                            var tamp = (Object.values(myJson))
-                            var table = document.getElementById("partyTable")
-                            for (var i = 0; i < tamp.length; i++) {
-                                for (var j = 0; j < tamp[i].length; j++) {
-                                    if (j != 0 && tamp[i][j] != "0") {
-                                        var tableRow = table.insertRow();
-                                        tableRow.setAttribute('class', 'odd')
-                                        var tableCell1 = tableRow.insertCell()
-                                        tableCell1.setAttribute('class', 'strong_1')
-                                        tableCell1.innerHTML = tamp[i][0]
-                                        console.log(tamp[i][0])
-                                        var tableCell2 = tableRow.insertCell()
-                                        tableCell2.innerHTML = bossName[j - 1]
-                                        console.log(bossName[j - 1])
+                var bossName = ["오레하 노말", "오레하 하드", "아르고스 1페", "아르고스 2페", "아르고스 3페", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드"]
+                fetch('https://3359jun.pythonanywhere.com/party')
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (myJson) {
+                        var tamp = (Object.values(myJson))
+                        var table = document.getElementById("partyTable")
+                        for (var i = 0; i < tamp.length; i++) {
+                            for (var j = 0; j < tamp[i].length; j++) {
+                                if (j != 0 && tamp[i][j] != "0") {
+                                    var tableRow = table.insertRow();
+                                    tableRow.setAttribute('class', 'odd')
+                                    var tableCell1 = tableRow.insertCell()
+                                    tableCell1.setAttribute('class', 'strong_1')
+                                    tableCell1.innerHTML = tamp[i][0]
+                                    console.log(tamp[i][0])
+                                    var tableCell2 = tableRow.insertCell()
+                                    tableCell2.innerHTML = bossName[j - 1]
+                                    console.log(bossName[j - 1])
 
-                                        var tableCell3 = tableRow.insertCell()
-                                        tableCell3.innerHTML = tamp[i][j]
-                                        console.log(tamp[i][j])
-                                    }
-
+                                    var tableCell3 = tableRow.insertCell()
+                                    tableCell3.innerHTML = tamp[i][j]
+                                    console.log(tamp[i][j])
                                 }
 
                             }
-                        });
 
-                });
+                        }
+                    });
+
+
             </script>
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
