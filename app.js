@@ -17,11 +17,6 @@ app.get('/', function (req, res) {
 app.get('/main', function (req, res) {
     res.sendFile(__dirname + "/index.html")
 })
-app.use(express.static('css'))
-app.use(express.static('vendor'))
-app.use(express.static('img'))
-app.use(express.static('js'))
-app.use(express.static('scss'))
 
 
 // 이제 터미널에 node app.js 를 입력해보자.
