@@ -370,17 +370,90 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+
                         </div>
+                        <script>
+                            var sendBossName = ["orehaNomal", "orehaHard", "argos1", "argos2", "argos3", "baltanNomal", "viakissNomal", "baltanHard", "viakissHard"]
+                            function resetTable() {
+                                table = document.getElementById("partyTable")
+                                for (var i = table.rows.length - 1; i > -1; i--) {
+                                    console.log(i)
+                                    console.log(table.rows[i])
+                                    table.removeChild(table.rows[i])
+
+                                }
+
+                            }
+                            function createTable(tableData, bossname) {
+                                resetTable()
+                                console.log(tableData)
+                                table = document.getElementById("partyTable")
+                                for (var i = 0; i < tableData.length; i++) {
+                                    var tableRow = table.insertRow()
+                                    tableRow.setAttribute('class', 'odd')
+                                    var tableCell1 = tableRow.insertCell()
+                                    tableCell1.setAttribute('class', 'strong_1')
+                                    tableCell1.innerHTML = tableData[i][0]
+                                    var tableCell2 = tableRow.insertCell()
+                                    tableCell2.innerHTML = bossname
+                                    var tableCell3 = tableRow.insertCell()
+                                    tableCell3.innerHTML = tableData[i][1]
+
+                                }
+
+                            }
+
+                            function getIndex(objectID) {
+                                var x = document.getElementById(objectID).selectedIndex;
+
+                                var y = document.getElementById(objectID).options;
+
+                                var idx
+                                var selectName
+
+
+                                if (objectID == "bossSelect") {
+                                    idx = y[x].index + 1;
+                                    selectName = sendBossName[idx - 1]
+                                    fetch("https://3359jun.pythonanywhere.com/searchPartyTobossName/" + selectName).then((response) => response.json())
+                                        .then((data) => createTable(data, selectName));
+                                }
+                            }
+
+
+                        </script>
                         <div class="card body">
-                            <table id="partyTable" class="table table-striped table-bordered" style="width:100%">
+                            <table class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>닉네임</th>
-                                        <th>보스이름</th>
-                                        <th>파티번호</th>
+                                        <th>
+
+                                            <select class="form-control" id="nameCombo"
+                                                onchange="getIndex('nameCombo')">
+                                            </select>
+                                        </th>
+                                        <th>
+
+                                            <select class="form-control" id="bossSelect"
+                                                onchange="getIndex('bossSelect')">
+                                                <option>오레하 노말</option>
+                                                <option>오레하 하드</option>
+                                                <option>아르고스 1페</option>
+                                                <option>아르고스 2페</option>
+                                                <option>아르고스 3페</option>
+                                                <option>발탄 노말</option>
+                                                <option>비아키스 노말</option>
+                                                <option>발탄 하드</option>
+                                                <option>비아키스 하드</option>
+
+                                            </select>
+                                        </th>
+                                        <th>
+                                            파티번호
+                                        </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="partyTable">
 
                                 </tbody>
                             </table>
@@ -392,40 +465,7 @@
 
             </div>
             <!-- End of Main Content -->
-            <script>
-                var bossName = ["오레하 노말", "오레하 하드", "아르고스 1페", "아르고스 2페", "아르고스 3페", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드"]
-                fetch('https://3359jun.pythonanywhere.com/party')
-                    .then(function (response) {
-                        return response.json();
-                    })
-                    .then(function (myJson) {
-                        var tamp = (Object.values(myJson))
-                        var table = document.getElementById("partyTable")
-                        for (var i = 0; i < tamp.length; i++) {
-                            for (var j = 0; j < tamp[i].length; j++) {
-                                if (j != 0 && tamp[i][j] != "0") {
-                                    var tableRow = table.insertRow();
-                                    tableRow.setAttribute('class', 'odd')
-                                    var tableCell1 = tableRow.insertCell()
-                                    tableCell1.setAttribute('class', 'strong_1')
-                                    tableCell1.innerHTML = tamp[i][0]
-                                    console.log(tamp[i][0])
-                                    var tableCell2 = tableRow.insertCell()
-                                    tableCell2.innerHTML = bossName[j - 1]
-                                    console.log(bossName[j - 1])
 
-                                    var tableCell3 = tableRow.insertCell()
-                                    tableCell3.innerHTML = tamp[i][j]
-                                    console.log(tamp[i][j])
-                                }
-
-                            }
-
-                        }
-                    });
-
-
-            </script>
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
