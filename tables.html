@@ -373,7 +373,11 @@
 
                         </div>
                         <script>
+
+                            fetch("http://3359jun.pythonanywhere.com/userName").then((response) => response.json())
+                                .then((data) => createOption(data));
                             var sendBossName = ["orehaNomal", "orehaHard", "argos1", "argos2", "argos3", "baltanNomal", "viakissNomal", "baltanHard", "viakissHard"]
+                            var BossNameByKor = ["오레하 노말", "오레하 하드", "아르고스 1페", "아르고스 2페", "아르고스 3페", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드"]
                             function resetTable() {
                                 table = document.getElementById("partyTable")
                                 for (var i = table.rows.length - 1; i > -1; i--) {
@@ -384,7 +388,41 @@
                                 }
 
                             }
-                            function createTable(tableData, bossname) {
+                            function createOption(userName) {
+                                var userNameCombo = document.getElementById("nameCombo")
+                                for (var i = 0; i < userName.length; i++) {
+                                    var objOption = document.createElement("option");
+                                    objOption.text = userName[i][0];
+                                    userNameCombo.options.add(objOption);
+                                }
+
+                            }
+
+                            function createTableToUserName(tableData, userName) {
+                                resetTable()
+                                table = document.getElementById("partyTable")
+                                for (var i = 1; i < tableData[0].length; i++) {
+                                    if (tableData[0][i] != "0") {
+                                        console.log(tableData[0][i])
+                                        var tableRow = table.insertRow()
+                                        tableRow.setAttribute('class', 'odd')
+                                        var tableCell1 = tableRow.insertCell()
+                                        tableCell1.setAttribute('class', 'strong_1')
+                                        tableCell1.innerHTML = userName
+                                        var tableCell2 = tableRow.insertCell()
+                                        tableCell2.innerHTML = BossNameByKor[i - 1]
+                                        var tableCell3 = tableRow.insertCell()
+                                        tableCell3.innerHTML = tableData[0][i]
+                                    }
+
+
+
+
+                                }
+
+                            }
+
+                            function createTableToBossName(tableData, bossname) {
                                 resetTable()
                                 console.log(tableData)
                                 table = document.getElementById("partyTable")
@@ -416,7 +454,16 @@
                                     idx = y[x].index + 1;
                                     selectName = sendBossName[idx - 1]
                                     fetch("https://3359jun.pythonanywhere.com/searchPartyTobossName/" + selectName).then((response) => response.json())
-                                        .then((data) => createTable(data, selectName));
+                                        .then((data) => createTableToBossName(data, selectName));
+                                }
+                                else {
+                                    nameCombo = document.getElementById(objectID)
+                                    comboIndex = nameCombo.options.selectedIndex
+                                    selectName = nameCombo.options[comboIndex].value
+
+                                    fetch("http://3359jun.pythonanywhere.com/searchPartyToUserName/" + selectName).then((response) => response.json())
+                                        .then((data) => createTableToUserName(data, selectName));
+
                                 }
                             }
 
