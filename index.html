@@ -261,8 +261,6 @@
                         </li>
 
                         <script>
-
-
                             function getCookie(c_name) {
                                 var i, x, y, ARRcookies = document.cookie.split(";");
                                 for (i = 0; i < ARRcookies.length; i++) {
@@ -274,8 +272,10 @@
                                     }
                                 }
                             }
-                            console.log(getCookie(origin))
-                            getCookie(origin)
+                            if (getCookie(origin) == null) {
+                                console.log("쿠키없음")
+                                location.href = "/projec/login.html";
+                            }
                         </script>
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
