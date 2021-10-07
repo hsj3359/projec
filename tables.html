@@ -374,7 +374,7 @@
                         </div>
                         <script>
 
-                            fetch("http://3359jun.pythonanywhere.com/userName").then((response) => response.json())
+                            fetch("https://3359jun.pythonanywhere.com/userName").then((response) => response.json())
                                 .then((data) => createOption(data));
                             var sendBossName = ["orehaNomal", "orehaHard", "argos1", "argos2", "argos3", "baltanNomal", "viakissNomal", "baltanHard", "viakissHard"]
                             var BossNameByKor = ["오레하 노말", "오레하 하드", "아르고스 1페", "아르고스 2페", "아르고스 3페", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드"]
@@ -461,7 +461,7 @@
                                     comboIndex = nameCombo.options.selectedIndex
                                     selectName = nameCombo.options[comboIndex].value
 
-                                    fetch("http://3359jun.pythonanywhere.com/searchPartyToUserName/" + selectName).then((response) => response.json())
+                                    fetch("https://3359jun.pythonanywhere.com/searchPartyToUserName/" + selectName).then((response) => response.json())
                                         .then((data) => createTableToUserName(data, selectName));
 
                                 }
