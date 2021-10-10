@@ -369,12 +369,25 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">주간 레이드
+                            </h6>
 
                         </div>
-                        <script>
 
-                            fetch("https://3359jun.pythonanywhere.com/userName").then((response) => response.json())
+                        <script>
+                            function getCookie(c_name) {
+                                var i, x, y, ARRcookies = document.cookie.split(";");
+                                for (i = 0; i < ARRcookies.length; i++) {
+                                    x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                                    y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+                                    x = x.replace(/^\s+|\s+$/g, "");
+                                    if (x == c_name) {
+                                        return unescape(y);
+                                    }
+                                }
+                            }
+                            //수정
+                            fetch("http://3359jun.pythonanywhere.com/user/" + 0).then((response) => response.json())
                                 .then((data) => createOption(data));
                             var sendBossName = ["orehaNomal", "orehaHard", "argos1", "argos2", "argos3", "baltanNomal", "viakissNomal", "baltanHard", "viakissHard"]
                             var BossNameByKor = ["오레하 노말", "오레하 하드", "아르고스 1페", "아르고스 2페", "아르고스 3페", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드"]
@@ -401,46 +414,161 @@
                             function createTableToUserName(tableData, userName) {
                                 resetTable()
                                 table = document.getElementById("partyTable")
-                                for (var i = 1; i < tableData[0].length; i++) {
-                                    if (tableData[0][i] != "0") {
-                                        console.log(tableData[0][i])
-                                        var tableRow = table.insertRow()
-                                        tableRow.setAttribute('class', 'odd')
-                                        var tableCell1 = tableRow.insertCell()
-                                        tableCell1.setAttribute('class', 'strong_1')
-                                        tableCell1.innerHTML = userName
-                                        var tableCell2 = tableRow.insertCell()
-                                        tableCell2.innerHTML = BossNameByKor[i - 1]
-                                        var tableCell3 = tableRow.insertCell()
-                                        tableCell3.innerHTML = tableData[0][i]
+                                for (var i = 0; i < tableData.length; i++) {
+                                    if (tableData[i] != "" && findBossName(tableData[i])) {
+                                        for (var j = 0; j < tableData[i].length; j++) {
+                                            var tableRow = table.insertRow()
+                                            tableRow.setAttribute('class', 'odd')
+                                            tableRow.setAttribute('data-toggle', 'modal')
+                                            tableRow.setAttribute('data-target', '#partyModal')
+                                            tableRow.setAttribute('onclick', 'showModal(this)')
+                                            var tableCell1 = tableRow.insertCell()
+                                            tableCell1.setAttribute('class', 'strong_1')
+                                            tableCell1.innerHTML = userName
+                                            var tableCell1 = tableRow.insertCell()
+                                            tableCell1.setAttribute('class', 'strong_1')
+                                            tableCell1.innerHTML = tableData[i][j][0]
+                                            var tableCell1 = tableRow.insertCell()
+                                            tableCell1.setAttribute('class', 'strong_1')
+                                            tableCell1.innerHTML = tableData[i][j][1]
+                                            var tableCell2 = tableRow.insertCell()
+                                            tableCell2.innerHTML = getBossName(tableData[i + 1])
+                                            var tableCell3 = tableRow.insertCell()
+                                            if (tableData[i][j][2] < 99) {
+                                                tableCell3.innerHTML = tableData[i][j][2]
+                                            }
+                                            else {
+                                                tableCell3.innerHTML = "완료"
+                                            }
+                                        }
                                     }
-
-
-
 
                                 }
 
+
                             }
 
-                            function createTableToBossName(tableData, bossname) {
+                            function createTableToBossName(tableData, index) {
                                 resetTable()
                                 console.log(tableData)
                                 table = document.getElementById("partyTable")
+                                var optionName = document.getElementById("bossSelect")
+
                                 for (var i = 0; i < tableData.length; i++) {
                                     var tableRow = table.insertRow()
                                     tableRow.setAttribute('class', 'odd')
+                                    tableRow.setAttribute('data-toggle', 'modal')
+                                    tableRow.setAttribute('data-target', '#partyModal')
+                                    tableRow.setAttribute('onclick', 'showModal(this)')
                                     var tableCell1 = tableRow.insertCell()
                                     tableCell1.setAttribute('class', 'strong_1')
                                     tableCell1.innerHTML = tableData[i][0]
+                                    var tableCell1 = tableRow.insertCell()
+                                    tableCell1.setAttribute('class', 'strong_1')
+                                    tableCell1.innerHTML = tableData[i][1]
+                                    var tableCell1 = tableRow.insertCell()
+                                    tableCell1.setAttribute('class', 'strong_1')
+                                    tableCell1.innerHTML = tableData[i][2]
                                     var tableCell2 = tableRow.insertCell()
-                                    tableCell2.innerHTML = bossname
+                                    tableCell2.innerHTML = optionName[index].text
                                     var tableCell3 = tableRow.insertCell()
-                                    tableCell3.innerHTML = tableData[i][1]
+                                    if (tableData[i][3] < 99) {
+                                        tableCell3.id = tableData[i][3]
+                                        tableCell3.innerHTML = tableData[i][3]
+
+                                    }
+                                    else {
+                                        tableCell3.id = tableData[i][3]
+                                        tableCell3.innerHTML = "완료"
+
+                                    }
 
                                 }
 
-                            }
 
+                            }
+                            function createPartyModalBody(data, bodyObject) {
+                                bodyObject.innerHTML = ""
+                                var ul = document.createElement('ul')
+                                for (var i = 0; i < data.length; i++) {
+                                    var li = document.createElement('li')
+                                    li.innerHTML = data[i]
+                                    ul.appendChild(li)
+                                }
+                                bodyObject.appendChild(ul)
+
+                            }
+                            function showModal(thisObject) {
+                                var partyModalName = document.getElementById('partyModalName')
+                                partyModalName.innerHTML = thisObject.cells[3].innerHTML + " " + thisObject.cells[4].innerHTML + "파티"
+                                var partyModalBody = document.getElementById('partyModalBody')
+                                fetch("http://3359jun.pythonanywhere.com/?bossName=" + getSendBossName(thisObject.cells[3].innerHTML) + "&partyNum=" + thisObject.cells[4].innerHTML).then((response) => response.json())
+                                    .then((data) => createPartyModalBody(data, partyModalBody));
+
+
+                            }
+                            function createTableToBossNameAll(tableData) {
+                                resetTable()
+                                console.log(tableData)
+                                table = document.getElementById("partyTable")
+                                var optionName = document.getElementById("bossSelect")
+                                for (var i = 0; i < tableData.length; i++) {
+                                    if (tableData[i] != "" && findBossName(tableData[i])) {
+                                        for (var j = 0; j < tableData[i].length; j++) {
+                                            var tableRow = table.insertRow()
+                                            tableRow.setAttribute('class', 'odd')
+                                            tableRow.setAttribute('data-toggle', 'modal')
+                                            tableRow.setAttribute('data-target', '#partyModal')
+                                            tableRow.setAttribute('onclick', 'showModal(this)')
+                                            var tableCell1 = tableRow.insertCell()
+                                            tableCell1.setAttribute('class', 'strong_1')
+                                            tableCell1.innerHTML = tableData[i][j][0]
+                                            var tableCell1 = tableRow.insertCell()
+                                            tableCell1.setAttribute('class', 'strong_1')
+                                            tableCell1.innerHTML = tableData[i][j][1]
+                                            var tableCell1 = tableRow.insertCell()
+                                            tableCell1.setAttribute('class', 'strong_1')
+                                            tableCell1.innerHTML = tableData[i][j][2]
+                                            var tableCell2 = tableRow.insertCell()
+                                            tableCell2.innerHTML = getBossName(tableData[i + 1])
+                                            var tableCell3 = tableRow.insertCell()
+                                            if (tableData[i][j][3] < 99) {
+                                                tableCell3.innerHTML = tableData[i][j][3]
+                                            }
+                                            else {
+                                                tableCell3.innerHTML = "완료"
+                                            }
+                                        }
+                                    }
+
+                                }
+
+
+                            }
+                            function getBossName(name) {
+                                for (var i = 0; i < sendBossName.length; i++) {
+                                    if (name.indexOf(sendBossName[i]) != -1) {
+                                        return BossNameByKor[i]
+                                    }
+                                }
+                                return 0
+                            }
+                            function getSendBossName(name) {
+                                for (var i = 0; i < sendBossName.length; i++) {
+                                    if (name.indexOf(BossNameByKor[i]) != -1) {
+                                        return sendBossName[i]
+                                    }
+                                }
+                                return 0
+                            }
+                            function findBossName(name) {
+                                for (var i = 0; i < sendBossName.length; i++) {
+                                    if (name.indexOf(sendBossName[i]) != -1) {
+                                        return false
+                                    }
+                                }
+                                return true
+                            }
                             function getIndex(objectID) {
                                 var x = document.getElementById(objectID).selectedIndex;
 
@@ -451,22 +579,32 @@
 
 
                                 if (objectID == "bossSelect") {
-                                    idx = y[x].index + 1;
-                                    selectName = sendBossName[idx - 1]
-                                    fetch("https://3359jun.pythonanywhere.com/searchPartyTobossName/" + selectName).then((response) => response.json())
-                                        .then((data) => createTableToBossName(data, selectName));
+                                    idx = y[x].index;
+                                    if (idx == 0) {
+                                        fetch("http://3359jun.pythonanywhere.com/searchPartyTobossNameAll/?origin=" + getCookie(origin)).then((response) => response.json())
+                                            .then((data) => createTableToBossNameAll(data));
+
+                                    }
+                                    else {
+                                        selectName = sendBossName[idx - 1]
+
+                                        fetch("http://3359jun.pythonanywhere.com/searchPartyTobossName/?bossName=" + selectName + "&origin=" + getCookie(origin)).then((response) => response.json())
+                                            .then((data) => createTableToBossName(data, idx));
+                                    }
+
                                 }
                                 else {
                                     nameCombo = document.getElementById(objectID)
                                     comboIndex = nameCombo.options.selectedIndex
                                     selectName = nameCombo.options[comboIndex].value
 
-                                    fetch("https://3359jun.pythonanywhere.com/searchPartyToUserName/" + selectName).then((response) => response.json())
+                                    fetch("http://3359jun.pythonanywhere.com//searchPartyToUserName/" + selectName).then((response) => response.json())
                                         .then((data) => createTableToUserName(data, selectName));
 
                                 }
                             }
-
+                            fetch("http://3359jun.pythonanywhere.com/searchPartyTobossNameAll/?origin=" + getCookie(origin)).then((response) => response.json())
+                                .then((data) => createTableToBossNameAll(data));
 
                         </script>
                         <div class="card body">
@@ -479,10 +617,13 @@
                                                 onchange="getIndex('nameCombo')">
                                             </select>
                                         </th>
+                                        <th>레벨</th>
+                                        <th>직업</th>
                                         <th>
 
                                             <select class="form-control" id="bossSelect"
                                                 onchange="getIndex('bossSelect')">
+                                                <option>전체</option>
                                                 <option>오레하 노말</option>
                                                 <option>오레하 하드</option>
                                                 <option>아르고스 1페</option>
@@ -549,6 +690,29 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- party Modal-->
+    <div class="modal fade" id="partyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="partyModalName">????????</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="partyModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+
                 </div>
             </div>
         </div>

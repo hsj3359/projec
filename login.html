@@ -50,8 +50,7 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="/index.html" class="btn btn-primary btn-user btn-block"
-                                            onclick="login()">
+                                        <a class="btn btn-primary btn-user btn-block" onclick="login()">
                                             Login
                                         </a>
 
@@ -73,10 +72,9 @@
                                                 }
                                             }
                                         }
-                                        if (getCookie(origin) != null) {
-                                            location.href = "/";
-
-
+                                        console.log(getCookie(origin))
+                                        if (getCookie(origin) != undefined) {
+                                            location.href = "/projec/tables";
                                         }
                                         function setCookie(cookie_name, value, days) {
                                             var exdate = new Date();
@@ -88,9 +86,16 @@
 
                                         function login() {
                                             var text = document.getElementById("exampleInputEmail").value
-                                            fetch("http://127.0.0.1:5000/login/" + text).then((response) => response.json())
+                                            fetch("http://3359jun.pythonanywhere.com/login/" + text).then((response) => response.json())
                                                 .then((data) => setCookie(origin, data, 1)
                                                 );
+                                            if (getCookie(origin) != undefined) {
+                                                location.href = "/tables";
+                                            }
+                                            else {
+                                                alert("닉네임")
+                                            }
+
                                         }
 
                                     </script>

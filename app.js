@@ -20,5 +20,8 @@ app.get('/main', function (req, res) {
 app.get('/login', function (req, res) {
     res.sendFile(__dirname + "/login.html")
 })
+app.get('/tables', function (req, res) {
+    res.sendFile(__dirname + "/tables.html")
+})
 
 // 이제 터미널에 node app.js 를 입력해보자.

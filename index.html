@@ -276,6 +276,9 @@
                                 console.log("쿠키없음")
                                 location.href = "/projec/login.html";
                             }
+                            else {
+                                location.href = "/projec/tables.html";
+                            }
                         </script>
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -754,7 +757,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" onclick="delCookie()" href="/login.html">Logout</a>
+                    <a class="btn btn-primary" onclick="delCookie()" href="/login">Logout</a>
                 </div>
             </div>
         </div>

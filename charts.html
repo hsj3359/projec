@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Charts</title>
+    <title>SB Admin 2 - Blank</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -100,13 +100,14 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
+            <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+                    aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Pages</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse show" aria-labelledby="headingPages"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
                         <a class="collapse-item" href="login.html">Login</a>
@@ -115,13 +116,13 @@
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <a class="collapse-item active" href="blank.html">Blank Page</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
@@ -267,8 +268,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -279,8 +279,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
@@ -291,8 +290,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
@@ -324,8 +322,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -356,71 +353,125 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" id="body">
+                    <script>
+                        // 수정해야함
+                        function checkModal(checkBox) {
+                            if (checkBox.checked) {
+                                fetch("http://127.0.0.1:5000/getOriginData/" + 0).then((response) => response.json())
+                                    .then((data) => createPage(data));
+                            }
+                            else {
+                                fetch("http://127.0.0.1:5000/getOriginData/" + 0).then((response) => response.json())
+                                    .then((data) => createPage(data));
+                            }
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Charts</h1>
-                    <p class="mb-4">Chart.js is a third party plugin that is used to generate the charts in this theme.
-                        The charts below have been customized - for further customization options, please visit the <a
-                            target="_blank" href="https://www.chartjs.org/docs/latest/">official Chart.js
-                            documentation</a>.</p>
 
-                    <!-- Content Row -->
-                    <div class="row">
+                        }
+                        function createCheckBox(data) {
+                            var modatBody = document.getElementById("checkModalBody")
+                            for (var i = 0; i < data.length; i++) {
+                                if (i != 0) {
+                                    var test = document.getElementById("dailyCheckBox").cloneNode(true);
+                                    modatBody.appendChild(test)
+                                    var modalLabel = document.getElementsByClassName("form-check-label")
+                                    var modalCheck = document.getElementsByClassName("form-check-input")
+                                    modalCheck[modalCheck.length - 1].setAttribute("onclick", "checkModal(this)")
+                                    modalCheck[modalCheck.length - 1].setAttribute("id", "checkBox" + i)
+                                    modalLabel[modalLabel.length - 1].setAttribute("id", "modalLabel" + i)
+                                    modalLabel[modalLabel.length - 1].innerHTML = data[i][0]
+                                }
+                                else {
+                                    var modalLabel = document.getElementsByClassName("form-check-label")
+                                    modalLabel[modalLabel.length - 1].setAttribute("id", "modalLabel" + i)
+                                    var modalCheck = document.getElementsByClassName("form-check-input")
+                                    modalCheck[modalCheck.length - 1].setAttribute("id", "checkBox" + i)
+                                    modalCheck[modalCheck.length - 1].setAttribute("onclick", "checkModal(this)")
+                                    modalLabel[modalLabel.length - 1].innerHTML = data[i][0]
+                                }
 
-                        <div class="col-xl-8 col-lg-7">
+                            }
 
-                            <!-- Area Chart -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                    <hr>
-                                    Styling for the area chart can be found in the
-                                    <code>/js/demo/chart-area-demo.js</code> file.
-                                </div>
-                            </div>
+                        }
+                        function createTable(data) {
+                            for (var i = 0; i < data.length; i++) {
 
-                            <!-- Bar Chart -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart-bar">
-                                        <canvas id="myBarChart"></canvas>
-                                    </div>
-                                    <hr>
-                                    Styling for the bar chart can be found in the
-                                    <code>/js/demo/chart-bar-demo.js</code> file.
-                                </div>
-                            </div>
+                            }
 
-                        </div>
+                        }
+                        function createPage(data) {
+                            createCheckBox(data)
+                            for (var i = 0; i < data[0].length - 1; i++) {
+                                for (var j = 0; j < data.length; j++) {
+                                    if (i == 0) {
+                                        var tableRow = document.getElementById("name")
+                                        var tableCell1 = tableRow.insertCell()
+                                        tableCell1.setAttribute('class', 'strong_1')
+                                        tableCell1.innerHTML = data[j][i]
 
-                        <!-- Donut Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <hr>
-                                    Styling for the donut chart can be found in the
-                                    <code>/js/demo/chart-pie-demo.js</code> file.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                    }
+                                    else if (i == 1) {
+                                        var tableRow = document.getElementById("level")
+                                        var tableCell1 = tableRow.insertCell()
+                                        tableCell1.setAttribute('class', 'strong_1')
+                                        tableCell1.innerHTML = data[j][i]
+                                    }
+                                    else if (i == 2) {
+                                        var tableRow = document.getElementById("job")
+                                        var tableCell1 = tableRow.insertCell()
+                                        tableCell1.setAttribute('class', 'strong_1')
+                                        tableCell1.innerHTML = data[j][i]
+
+                                    }
+                                    else if (i == 3) {
+                                        var tableRow = document.getElementById("chaos")
+                                        var tableCell1 = tableRow.insertCell()
+                                        tableCell1.setAttribute('class', 'strong_1')
+                                        tableCell1.innerHTML = data[j][i]
+
+                                    }
+                                    else if (i == 4) {
+                                        var tableRow = document.getElementById("guardian")
+                                        var tableCell1 = tableRow.insertCell()
+                                        tableCell1.setAttribute('class', 'strong_1')
+                                        tableCell1.innerHTML = data[j][i]
+
+                                    }
+                                    else {
+                                        var tableRow = document.getElementById("epona")
+                                        var tableCell1 = tableRow.insertCell()
+                                        tableCell1.setAttribute('class', 'strong_1')
+                                        tableCell1.innerHTML = data[j][i]
+
+                                    }
+
+                                }
+                            }
+
+                        }
+                        fetch("http://127.0.0.1:5000/dailyCheck/" + 0).then((response) => response.json())
+                            .then((data) => createPage(data));
+                    </script>
+                    <table id="partyTable" class="table table-striped table-bordered" style="width:100%">
+                        <tr id=name>
+                            <td data-toggle="modal" data-target="#modifyModal">이름</td>
+                        </tr>
+                        <tr id="level">
+                            <td>레벨</td>
+                        </tr>
+                        <tr id="job">
+                            <td>직업</td>
+                        </tr>
+                        <tr id="chaos">
+                            <td>카오스 던전</td>
+                        </tr>
+                        <tr id="guardian">
+                            <td>가디언 토벌</td>
+                        </tr>
+                        <tr id="epona">
+                            <td>에포나</td>
+                        </tr>
+                    </table>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -469,6 +520,36 @@
         </div>
     </div>
 
+    <!-- modify Modal-->
+    <script>
+
+
+    </script>
+    <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">수정</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="checkModalBody">
+                    <div class="form-check" id="dailyCheckBox">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Checked checkbox
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -478,14 +559,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
-    <script src="js/demo/chart-bar-demo.js"></script>
 
 </body>
 
