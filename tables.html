@@ -391,7 +391,7 @@
                                 location.href = "/projec/login.html";
                             }
                             //수정
-                            fetch("https://3359jun.pythonanywhere.com/user/" + 0).then((response) => response.json())
+                            fetch("https://3359jun.pythonanywhere.com/user/" + getCookie(origin)).then((response) => response.json())
                                 .then((data) => createOption(data));
                             var sendBossName = ["orehaNomal", "orehaHard", "argos1", "argos2", "argos3", "baltanNomal", "viakissNomal", "baltanHard", "viakissHard"]
                             var BossNameByKor = ["오레하 노말", "오레하 하드", "아르고스 1페", "아르고스 2페", "아르고스 3페", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드"]
@@ -506,7 +506,7 @@
                                 var partyModalName = document.getElementById('partyModalName')
                                 partyModalName.innerHTML = thisObject.cells[3].innerHTML + " " + thisObject.cells[4].innerHTML + "파티"
                                 var partyModalBody = document.getElementById('partyModalBody')
-                                fetch("https://3359jun.pythonanywhere.com/?bossName=" + getSendBossName(thisObject.cells[3].innerHTML) + "&partyNum=" + thisObject.cells[4].innerHTML).then((response) => response.json())
+                                fetch("https://3359jun.pythonanywhere.com/searchParty/?bossName=" + getSendBossName(thisObject.cells[3].innerHTML) + "&partyNum=" + thisObject.cells[4].innerHTML).then((response) => response.json())
                                     .then((data) => createPartyModalBody(data, partyModalBody));
 
 
