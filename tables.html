@@ -609,7 +609,12 @@
                             }
                             fetch("https://3359jun.pythonanywhere.com/searchPartyTobossNameAll/?origin=" + getCookie(origin)).then((response) => response.json())
                                 .then((data) => createTableToBossNameAll(data));
-
+                            const delCookie = function delCookie_by_name() {
+                                let date = new Date();
+                                date.setDate(date.getDate() - 100);
+                                let Cookie = `${origin}=;Expires=${date.toUTCString()}`
+                                document.cookie = Cookie;
+                            }
                         </script>
                         <div class="card body">
                             <table class="table table-striped table-bordered" style="width:100%">
@@ -693,7 +698,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" onclick="delCookie()" href="/projec/login.html">Logout</a>
                 </div>
             </div>
         </div>
