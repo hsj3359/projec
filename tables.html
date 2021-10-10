@@ -386,6 +386,10 @@
                                     }
                                 }
                             }
+                            if (getCookie(origin) == undefined) {
+                                console.log("쿠키없음")
+                                location.href = "/projec/login.html";
+                            }
                             //수정
                             fetch("http://3359jun.pythonanywhere.com/user/" + 0).then((response) => response.json())
                                 .then((data) => createOption(data));
