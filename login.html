@@ -50,8 +50,7 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="/projec/tables.html" class="btn btn-primary btn-user btn-block"
-                                            onclick="login()">
+                                        <a class="btn btn-primary btn-user btn-block" onclick="login()">
                                             Login
                                         </a>
 
@@ -82,7 +81,9 @@
                                             exdate.setDate(exdate.getDate() + days);
                                             var cookie_value = escape(value) + ((days == null) ? '' : '; expires=' + exdate.toUTCString());
                                             document.cookie = cookie_name + '=' + cookie_value;
-
+                                            if (getCookie(origin) != undefined) {
+                                                location.href = "/projec/tables";
+                                            }
                                         }
                                         function login() {
                                             var text = document.getElementById("exampleInputEmail").value
