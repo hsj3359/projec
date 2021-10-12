@@ -740,7 +740,7 @@
 
     <script>
         function partyClear() {
-            var modalTile = document.getElementById("partyModalName").text
+            var modalTile = document.getElementById("partyModalName").innerText
             var bossName = getSendBossName(modalTile)
             var partyNum = modalTile.slice(modalTile.length - 3, 1)
             console.log("파티번호" + partyNum)
