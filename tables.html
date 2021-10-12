@@ -601,7 +601,8 @@
                                     idx = y[x].index;
                                     if (idx == 0) {
                                         if (getCookie(origin) == "*") {
-
+                                            fetch("https://3359jun.pythonanywhere.com/searchPartyALL").then((response) => response.json())
+                                                .then((data) => createTableToBossNameAll(data));
                                         }
                                         else {
                                             fetch("https://3359jun.pythonanywhere.com/searchPartyTobossNameAll/?origin=" + getCookie(origin)).then((response) => response.json())
@@ -613,6 +614,8 @@
                                     else {
                                         selectName = sendBossName[idx - 1]
                                         if (getCookie(origin) == "*") {
+                                            fetch("https://3359jun.pythonanywhere.com/searchPartyTobossNameNotOrigin/" + selectName).then((response) => response.json())
+                                                .then((data) => createTableToBossName(data, idx));
 
                                         }
                                         else {
