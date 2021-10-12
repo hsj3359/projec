@@ -390,6 +390,17 @@
                                 console.log("쿠키없음")
                                 location.href = "/projec/login.html";
                             }
+                            else {
+                                if (getCookie(origin) == "*") {
+                                    fetch("https://3359jun.pythonanywhere.com/searchPartyALL").then((response) => response.json())
+                                        .then((data) => createTableToBossNameAll(data));
+                                }
+                                else {
+                                    fetch("https://3359jun.pythonanywhere.com/searchPartyTobossNameAll/?origin=" + getCookie(origin)).then((response) => response.json())
+                                        .then((data) => createTableToBossNameAll(data));
+                                }
+
+                            }
                             //수정
                             fetch("https://3359jun.pythonanywhere.com/user/" + getCookie(origin)).then((response) => response.json())
                                 .then((data) => createOption(data));
@@ -607,8 +618,7 @@
 
                                 }
                             }
-                            fetch("https://3359jun.pythonanywhere.com/searchPartyTobossNameAll/?origin=" + getCookie(origin)).then((response) => response.json())
-                                .then((data) => createTableToBossNameAll(data));
+
                             const delCookie = function delCookie_by_name() {
                                 let date = new Date();
                                 date.setDate(date.getDate() - 100);
@@ -720,12 +730,25 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-
+                    <button class="btn btn-primary" type="button" data-dismiss="modal"
+                        onclick="partyClear()">완료</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">닫기</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function partyClear() {
+            var modalTile = document.getElementById("partyModalName").text
+            var bossName = getSendBossName(modalTile)
+            var partyNum = modalTile.slice(modalTile.length - 3, 1)
+            console.log("파티번호" + partyNum)
+            console.log("보스이름은" + bossName)
+            // fetch("https://3359jun.pythonanywhere.com/clearGET/?bossName=" + bossName + "&partyNum=").then((response) => response.json())
+            //     .then((data) => console.log(data));
+        }
+    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

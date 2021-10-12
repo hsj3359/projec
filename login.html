@@ -87,9 +87,14 @@
                                         }
                                         function login() {
                                             var text = document.getElementById("exampleInputEmail").value
-                                            fetch("https://3359jun.pythonanywhere.com/login/" + text).then((response) => response.json())
-                                                .then((data) => setCookie(origin, data, 1)
-                                                );
+                                            if (text == "*") {
+                                                setCookie(origin, "*", 1)
+                                            }
+                                            else {
+                                                fetch("https://3359jun.pythonanywhere.com/login/" + text).then((response) => response.json())
+                                                    .then((data) => setCookie(origin, data, 1)
+                                                    );
+                                            }
                                         }
 
                                     </script>
