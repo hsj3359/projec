@@ -745,7 +745,7 @@
             var partyNum = modalTile.slice(modalTile.length - 3, modalTile.length - 2)
             console.log("파티번호" + partyNum)
             console.log("보스이름은" + bossName)
-            fetch("https://3359jun.pythonanywhere.com/clearGET/?bossName=" + bossName + "&partyNum=").then((response) => response.json())
+            fetch("https://3359jun.pythonanywhere.com/clearGET/?bossName=" + bossName + "&partyNum=" + partyNum).then((response) => response.json())
                 .then((data) => console.log(data));
         }
     </script>
