@@ -392,18 +392,22 @@
                             }
                             else {
                                 if (getCookie(origin) == "*") {
+                                    fetch("https://3359jun.pythonanywhere.com//userData").then((response) => response.json())
+                                        .then((data) => createOption(data));
                                     fetch("https://3359jun.pythonanywhere.com/searchPartyALL").then((response) => response.json())
                                         .then((data) => createTableToBossNameAll(data));
                                 }
                                 else {
+                                    fetch("https://3359jun.pythonanywhere.com/user/" + getCookie(origin)).then((response) => response.json())
+                                        .then((data) => createOption(data));
                                     fetch("https://3359jun.pythonanywhere.com/searchPartyTobossNameAll/?origin=" + getCookie(origin)).then((response) => response.json())
                                         .then((data) => createTableToBossNameAll(data));
                                 }
 
                             }
                             //수정
-                            fetch("https://3359jun.pythonanywhere.com/user/" + getCookie(origin)).then((response) => response.json())
-                                .then((data) => createOption(data));
+
+
                             var sendBossName = ["orehaNomal", "orehaHard", "argos1", "argos2", "argos3", "baltanNomal", "viakissNomal", "baltanHard", "viakissHard"]
                             var BossNameByKor = ["오레하 노말", "오레하 하드", "아르고스 1페", "아르고스 2페", "아르고스 3페", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드"]
                             function resetTable() {
@@ -596,15 +600,26 @@
                                 if (objectID == "bossSelect") {
                                     idx = y[x].index;
                                     if (idx == 0) {
-                                        fetch("https://3359jun.pythonanywhere.com/searchPartyTobossNameAll/?origin=" + getCookie(origin)).then((response) => response.json())
-                                            .then((data) => createTableToBossNameAll(data));
+                                        if (getCookie(origin) == "*") {
+
+                                        }
+                                        else {
+                                            fetch("https://3359jun.pythonanywhere.com/searchPartyTobossNameAll/?origin=" + getCookie(origin)).then((response) => response.json())
+                                                .then((data) => createTableToBossNameAll(data));
+                                        }
+
 
                                     }
                                     else {
                                         selectName = sendBossName[idx - 1]
+                                        if (getCookie(origin) == "*") {
 
-                                        fetch("https://3359jun.pythonanywhere.com/searchPartyTobossName/?bossName=" + selectName + "&origin=" + getCookie(origin)).then((response) => response.json())
-                                            .then((data) => createTableToBossName(data, idx));
+                                        }
+                                        else {
+                                            fetch("https://3359jun.pythonanywhere.com/searchPartyTobossName/?bossName=" + selectName + "&origin=" + getCookie(origin)).then((response) => response.json())
+                                                .then((data) => createTableToBossName(data, idx));
+                                        }
+
                                     }
 
                                 }
