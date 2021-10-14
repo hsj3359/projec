@@ -406,8 +406,6 @@
 
                             }
                             //수정
-
-
                             var sendBossName = ["orehaNomal", "orehaHard", "argos1", "argos2", "argos3", "baltanNomal", "viakissNomal", "baltanHard", "viakissHard"]
                             var BossNameByKor = ["오레하 노말", "오레하 하드", "아르고스 1페", "아르고스 2페", "아르고스 3페", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드"]
                             function resetTable() {
@@ -429,7 +427,6 @@
                                 }
 
                             }
-
                             function createTableToUserName(tableData, userName) {
                                 resetTable()
                                 table = document.getElementById("partyTable")
@@ -466,7 +463,6 @@
                                     }
                                 }
                             }
-
                             function createTableToBossName(tableData, index) {
                                 resetTable()
                                 console.log(tableData)
@@ -687,6 +683,10 @@
                                 <tbody id="partyTable">
 
                                 </tbody>
+                                <tfoot><button class="btn btn-primary" type="button" data-dismiss="modal"
+                                        float="right">완료</button>
+
+                                </tfoot>
                             </table>
                         </div>
                     </div>
