@@ -356,100 +356,157 @@
                 <div class="container-fluid" id="body">
                     <script>
                         // 수정해야함
-                        function checkModal(checkBox) {
+                        function checkModal(checkBox, userName) {
                             if (checkBox.checked) {
-                                fetch("https://127.0.0.1:5000/getOriginData/" + 0).then((response) => response.json())
-                                    .then((data) => createPage(data));
+                                console.log(userName)
+                                fetch("https://3359jun.pythonanywhere.com/makeDailyCheck/" + userName).then((response) => response)
+                                    .then((data) => console.log(data));
                             }
                             else {
-                                fetch("https://127.0.0.1:5000/getOriginData/" + 0).then((response) => response.json())
-                                    .then((data) => createPage(data));
+                                console.log(userName)
+                                fetch("https://3359jun.pythonanywhere.com/removeDailyCheck/" + userName).then((response) => response)
+                                    .then((data) => console.log(data));
                             }
-
-
+                            resetTable()
+                            fetch("http://3359jun.pythonanywhere.com/dailyCheck/" + 0).then((response) => response.json())
+                                .then((data) => createPage(data));
                         }
+
                         function createCheckBox(data) {
                             var modatBody = document.getElementById("checkModalBody")
+                            var inputDiv = document.getElementsByClassName("form-check")
+                            for (var i = document.getElementsByClassName("form-check").length - 1; i > -1; i--) {
+                                modatBody.removeChild(inputDiv[i])
+                            }
                             for (var i = 0; i < data.length; i++) {
-                                if (i != 0) {
-                                    var test = document.getElementById("dailyCheckBox").cloneNode(true);
-                                    modatBody.appendChild(test)
-                                    var modalLabel = document.getElementsByClassName("form-check-label")
-                                    var modalCheck = document.getElementsByClassName("form-check-input")
-                                    modalCheck[modalCheck.length - 1].setAttribute("onclick", "checkModal(this)")
-                                    modalCheck[modalCheck.length - 1].setAttribute("id", "checkBox" + i)
-                                    modalLabel[modalLabel.length - 1].setAttribute("id", "modalLabel" + i)
-                                    modalLabel[modalLabel.length - 1].innerHTML = data[i][0]
+                                inputDiv = document.createElement("div")
+                                inputDiv.setAttribute("class", "form-check")
+                                modatBody.appendChild(inputDiv)
+
+                                var checkBox = document.createElement("input")
+                                checkBox.setAttribute("class", "form-check-input")
+                                checkBox.type = "checkBox"
+                                checkBox.setAttribute("onclick", "checkModal(this,'" + data[i][0] + "')")
+                                inputDiv.appendChild(checkBox)
+
+                                var checkLabel = document.createElement("label")
+                                checkLabel.setAttribute("class", "form-check-label")
+                                checkLabel.setAttribute("for", "flexCheckChecked")
+                                checkLabel.innerHTML = data[i][0]
+                                inputDiv.appendChild(checkLabel)
+
+                                if (data[i][6] == 1) {
+                                    checkBox.checked = false
                                 }
                                 else {
-                                    var modalLabel = document.getElementsByClassName("form-check-label")
-                                    modalLabel[modalLabel.length - 1].setAttribute("id", "modalLabel" + i)
-                                    var modalCheck = document.getElementsByClassName("form-check-input")
-                                    modalCheck[modalCheck.length - 1].setAttribute("id", "checkBox" + i)
-                                    modalCheck[modalCheck.length - 1].setAttribute("onclick", "checkModal(this)")
-                                    modalLabel[modalLabel.length - 1].innerHTML = data[i][0]
+                                    checkBox.checked = true
                                 }
-
                             }
-
                         }
-                        function createTable(data) {
-                            for (var i = 0; i < data.length; i++) {
 
+
+
+                        function resetTable() {
+                            table = document.getElementById("partyTable")
+                            for (var i = table.rows.length - 1; i > -1; i--) {
+                                console.log("셀의 갯수는" + table.rows[i].cells.length)
+                                for (var j = table.rows[i].cells.length - 1; j > 0; j--) {
+                                    table.rows[i].removeChild(table.rows[i].cells[j])
+                                }
                             }
-
                         }
+
+
                         function createPage(data) {
                             createCheckBox(data)
                             for (var i = 0; i < data[0].length - 1; i++) {
                                 for (var j = 0; j < data.length; j++) {
-                                    if (i == 0) {
-                                        var tableRow = document.getElementById("name")
-                                        var tableCell1 = tableRow.insertCell()
-                                        tableCell1.setAttribute('class', 'strong_1')
-                                        tableCell1.innerHTML = data[j][i]
+                                    if (data[j][6] == 0) {
+                                        if (i == 0) {
+                                            var tableRow = document.getElementById("name")
+                                            var tableCell1 = tableRow.insertCell()
+                                            tableCell1.setAttribute('class', 'strong_1')
+                                            tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
+                                            tableCell1.innerHTML = data[j][i]
 
-                                    }
-                                    else if (i == 1) {
-                                        var tableRow = document.getElementById("level")
-                                        var tableCell1 = tableRow.insertCell()
-                                        tableCell1.setAttribute('class', 'strong_1')
-                                        tableCell1.innerHTML = data[j][i]
-                                    }
-                                    else if (i == 2) {
-                                        var tableRow = document.getElementById("job")
-                                        var tableCell1 = tableRow.insertCell()
-                                        tableCell1.setAttribute('class', 'strong_1')
-                                        tableCell1.innerHTML = data[j][i]
+                                        }
+                                        else if (i == 1) {
+                                            var tableRow = document.getElementById("level")
+                                            var tableCell1 = tableRow.insertCell()
+                                            tableCell1.setAttribute('class', 'strong_1')
+                                            tableCell1.innerHTML = data[j][i]
+                                        }
+                                        else if (i == 2) {
+                                            var tableRow = document.getElementById("job")
+                                            var tableCell1 = tableRow.insertCell()
+                                            tableCell1.setAttribute('class', 'strong_1')
+                                            tableCell1.innerHTML = data[j][i]
 
-                                    }
-                                    else if (i == 3) {
-                                        var tableRow = document.getElementById("chaos")
-                                        var tableCell1 = tableRow.insertCell()
-                                        tableCell1.setAttribute('class', 'strong_1')
-                                        tableCell1.innerHTML = data[j][i]
+                                        }
+                                        else if (i == 3) {
 
-                                    }
-                                    else if (i == 4) {
-                                        var tableRow = document.getElementById("guardian")
-                                        var tableCell1 = tableRow.insertCell()
-                                        tableCell1.setAttribute('class', 'strong_1')
-                                        tableCell1.innerHTML = data[j][i]
+                                            var tableRow = document.getElementById("chaos")
+                                            var tableCell1 = tableRow.insertCell()
+                                            tableCell1.setAttribute('class', 'strong_1')
+                                            tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
+                                            tableCell1.addEventListener("dblclick", function (tableCell1) {
+                                                $('#gageModal').modal('show');
+                                                document.getElementsByClassName("modal-title gage")[0].innerHTML = "카오스 던전 휴식게이지"
+                                                document.getElementsByClassName("modal-title gage")[0].setAttribute("id", "chaos")
+                                                document.getElementById("gageInput").value = this.innerHTML
+                                                var cellName = this.getAttribute("id")
+                                                var userName = document.getElementById("1/" + cellName.slice(cellName.length - 1, cellName.length))
+                                                console.log(this)
+                                                document.getElementById("gageUserLabel").innerHTML = userName.innerHTML
+                                            });
 
-                                    }
-                                    else {
-                                        var tableRow = document.getElementById("epona")
-                                        var tableCell1 = tableRow.insertCell()
-                                        tableCell1.setAttribute('class', 'strong_1')
-                                        tableCell1.innerHTML = data[j][i]
+                                            tableCell1.innerHTML = data[j][i]
 
-                                    }
+                                        }
+                                        else if (i == 4) {
+                                            var tableRow = document.getElementById("guardian")
+                                            var tableCell1 = tableRow.insertCell()
+                                            tableCell1.setAttribute('class', 'strong_1')
+                                            tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
+                                            tableCell1.addEventListener("dblclick", function (tableCell1) {
+                                                $('#gageModal').modal('show');
+                                                document.getElementsByClassName("modal-title gage")[0].innerHTML = "가디언 토벌 휴식게이지"
+                                                document.getElementsByClassName("modal-title gage")[0].setAttribute("id", "guardian")
+                                                document.getElementById("gageInput").value = this.innerHTML
+                                                var cellName = this.getAttribute("id")
+                                                var userName = document.getElementById("1/" + cellName.slice(cellName.length - 1, cellName.length))
+                                                console.log(this)
+                                                document.getElementById("gageUserLabel").innerHTML = userName.innerHTML
+                                            });
+                                            tableCell1.innerHTML = data[j][i]
 
+                                        }
+                                        else {
+                                            var tableRow = document.getElementById("epona")
+                                            var tableCell1 = tableRow.insertCell()
+                                            tableCell1.setAttribute('class', 'strong_1')
+                                            tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
+                                            tableCell1.addEventListener("dblclick", function (tableCell1) {
+                                                $('#gageModal').modal('show');
+                                                document.getElementsByClassName("modal-title gage")[0].innerHTML = "에포나 휴식게이지"
+                                                document.getElementsByClassName("modal-title gage")[0].setAttribute("id", "epona")
+                                                document.getElementById("gageInput").value = this.innerHTML
+                                                var cellName = this.getAttribute("id")
+                                                var userName = document.getElementById("1/" + cellName.slice(cellName.length - 1, cellName.length))
+                                                console.log(this)
+                                                document.getElementById("gageUserLabel").innerHTML = userName.innerHTML
+                                            });
+                                            tableCell1.innerHTML = data[j][i]
+
+                                        }
+                                    }
                                 }
                             }
-
                         }
-                        fetch("https://127.0.0.1:5000/dailyCheck/" + 0).then((response) => response.json())
+                        function gageModify(thisObject) {
+                            console.log(thisObject.id)
+                        }
+                        fetch("http://3359jun.pythonanywhere.com/dailyCheck/" + 0).then((response) => response.json())
                             .then((data) => createPage(data));
                     </script>
                     <table id="partyTable" class="table table-striped table-bordered" style="width:100%">
@@ -536,18 +593,57 @@
                     </button>
                 </div>
                 <div class="modal-body" id="checkModalBody">
-                    <div class="form-check" id="dailyCheckBox">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Checked checkbox
-                        </label>
-                    </div>
+
                 </div>
                 <div class="modal-footer">
                 </div>
             </div>
         </div>
     </div>
+    <!-- gage Modal-->
+    <script>
+        function modifyGage() {
+            var type = document.getElementsByClassName("modal-title gage")[0].getAttribute("id")
+            var userName = document.getElementById("gageUserLabel").innerText
+            var gage = document.getElementById("gageInput").value
+            fetch("https://3359jun.pythonanywhere.com/modifyDailyTask/?type=" + type + "&userName=" + userName + "&gage=" + gage).then((response) => response)
+                .then((data) => console.log(data));
+            resetTable()
+            fetch("http://3359jun.pythonanywhere.com/dailyCheck/" + 0).then((response) => response.json())
+                .then((data) => createPage(data));
+        }
+
+
+    </script>
+    <div class="modal fade" id="gageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title gage" id="gageModalLabel">휴식게이지</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="checkModalBody">
+                    <label class="form-check-label" id="gageUserLabel"></label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+
+                            <span class="input-group-text" id="inputGroup-sizing-default">휴식 게이지</span>
+                        </div>
+                        <input type="text" id="gageInput" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal"
+                        onclick="modifyGage()">수정</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <!-- Bootstrap core JavaScript-->
