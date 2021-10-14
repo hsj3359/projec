@@ -474,7 +474,7 @@
                                 var optionName = document.getElementById("bossSelect")
 
                                 for (var i = 0; i < tableData.length; i++) {
-                                    if (tableData[i][j][2] != 0 && tableData[i][j][2] != 990) {
+                                    if (tableData[i][3] != 0 && tableData[i][3] != 990) {
                                         var tableRow = table.insertRow()
                                         tableRow.setAttribute('class', 'odd')
                                         tableRow.setAttribute('data-toggle', 'modal')
@@ -537,29 +537,32 @@
                                 for (var i = 0; i < tableData.length; i++) {
                                     if (tableData[i] != "" && findBossName(tableData[i])) {
                                         for (var j = 0; j < tableData[i].length; j++) {
-                                            var tableRow = table.insertRow()
-                                            tableRow.setAttribute('class', 'odd')
-                                            tableRow.setAttribute('data-toggle', 'modal')
-                                            tableRow.setAttribute('data-target', '#partyModal')
-                                            tableRow.setAttribute('onclick', 'showModal(this)')
-                                            var tableCell1 = tableRow.insertCell()
-                                            tableCell1.setAttribute('class', 'strong_1')
-                                            tableCell1.innerHTML = tableData[i][j][0]
-                                            var tableCell1 = tableRow.insertCell()
-                                            tableCell1.setAttribute('class', 'strong_1')
-                                            tableCell1.innerHTML = tableData[i][j][1]
-                                            var tableCell1 = tableRow.insertCell()
-                                            tableCell1.setAttribute('class', 'strong_1')
-                                            tableCell1.innerHTML = tableData[i][j][2]
-                                            var tableCell2 = tableRow.insertCell()
-                                            tableCell2.innerHTML = getBossName(tableData[i + 1])
-                                            var tableCell3 = tableRow.insertCell()
-                                            if (tableData[i][j][3] < 99) {
-                                                tableCell3.innerHTML = tableData[i][j][3]
+                                            if (tableData[i][j][2] != 0 && tableData[i][j][2] != 990) {
+                                                var tableRow = table.insertRow()
+                                                tableRow.setAttribute('class', 'odd')
+                                                tableRow.setAttribute('data-toggle', 'modal')
+                                                tableRow.setAttribute('data-target', '#partyModal')
+                                                tableRow.setAttribute('onclick', 'showModal(this)')
+                                                var tableCell1 = tableRow.insertCell()
+                                                tableCell1.setAttribute('class', 'strong_1')
+                                                tableCell1.innerHTML = tableData[i][j][0]
+                                                var tableCell1 = tableRow.insertCell()
+                                                tableCell1.setAttribute('class', 'strong_1')
+                                                tableCell1.innerHTML = tableData[i][j][1]
+                                                var tableCell1 = tableRow.insertCell()
+                                                tableCell1.setAttribute('class', 'strong_1')
+                                                tableCell1.innerHTML = tableData[i][j][2]
+                                                var tableCell2 = tableRow.insertCell()
+                                                tableCell2.innerHTML = getBossName(tableData[i + 1])
+                                                var tableCell3 = tableRow.insertCell()
+                                                if (tableData[i][j][3] < 99) {
+                                                    tableCell3.innerHTML = tableData[i][j][3]
+                                                }
+                                                else {
+                                                    tableCell3.innerHTML = "완료"
+                                                }
                                             }
-                                            else {
-                                                tableCell3.innerHTML = "완료"
-                                            }
+
                                         }
                                     }
 
