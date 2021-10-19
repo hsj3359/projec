@@ -392,7 +392,7 @@
                             }
                             else {
                                 if (getCookie(origin) == "*") {
-                                    fetch("https://3359jun.pythonanywhere.com//userData").then((response) => response.json())
+                                    fetch("https://3359jun.pythonanywhere.com/userData").then((response) => response.json())
                                         .then((data) => createOption(data));
                                     fetch("https://3359jun.pythonanywhere.com/searchPartyALL").then((response) => response.json())
                                         .then((data) => createTableToBossNameAll(data));
