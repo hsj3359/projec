@@ -406,8 +406,8 @@
 
                             }
                             //수정
-                            var sendBossName = ["orehaNomal", "orehaHard", "argos1", "argos2", "argos3", "baltanNomal", "viakissNomal", "baltanHard", "viakissHard"]
-                            var BossNameByKor = ["오레하 노말", "오레하 하드", "아르고스 1페", "아르고스 2페", "아르고스 3페", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드"]
+                            var sendBossName = ["oreha", "argos", "baltanNomal", "viakissNomal", "baltanHard", "viakissHard", "kukusaten", "abrellshude"]
+                            var BossNameByKor = ["오레하", "아르고스", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드", "쿠크세이튼", "아브렐슈드"]
                             function resetTable() {
                                 table = document.getElementById("partyTable")
                                 for (var i = table.rows.length - 1; i > -1; i--) {
@@ -663,15 +663,15 @@
                                             <select class="form-control" id="bossSelect"
                                                 onchange="getIndex('bossSelect')">
                                                 <option>전체</option>
-                                                <option>오레하 노말</option>
-                                                <option>오레하 하드</option>
-                                                <option>아르고스 1페</option>
-                                                <option>아르고스 2페</option>
-                                                <option>아르고스 3페</option>
+                                                <option>오레하</option>
+                                                <option>아르고스</option>
                                                 <option>발탄 노말</option>
                                                 <option>비아키스 노말</option>
                                                 <option>발탄 하드</option>
                                                 <option>비아키스 하드</option>
+                                                <option>쿠크세이튼</option>
+                                                <option>아브렐슈드</option>
+
 
                                             </select>
                                         </th>
