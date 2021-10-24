@@ -355,6 +355,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid" id="body">
                     <script>
+                        var sendBossName = ["oreha", "argos", "baltanNomal", "viakissNomal", "baltanHard", "viakissHard", "kukusaten", "abrellshude"]
                         function createPage(data) {
                             console.log(data)
                             for (var i = 0; i < data[0].length; i++) {
@@ -386,7 +387,7 @@
                                             var tableCell1 = tableRow.insertCell()
                                             tableCell1.setAttribute('class', 'strong_1')
                                             if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this," + sendBossName[0] + "," + data[j][0] + ")'></div>"
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
@@ -413,7 +414,7 @@
                                             tableCell1.setAttribute('class', 'strong_1')
                                             tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
                                             if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this," + sendBossName[1] + "," + data[j][0] + ")'></div>"
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
@@ -439,7 +440,7 @@
                                             tableCell1.setAttribute('class', 'strong_1')
                                             tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
                                             if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this," + sendBossName[2] + "," + data[j][0] + ")'></div>"
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
@@ -466,7 +467,7 @@
                                             tableCell1.setAttribute('class', 'strong_1')
                                             tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
                                             if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this," + sendBossName[3] + "," + data[j][0] + ")'></div>"
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
@@ -490,7 +491,7 @@
                                             tableCell1.setAttribute('class', 'strong_1')
                                             tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
                                             if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this," + sendBossName[4] + "," + data[j][0] + ")'></div>"
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
@@ -516,7 +517,7 @@
                                             tableCell1.setAttribute('class', 'strong_1')
                                             tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
                                             if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this," + sendBossName[5] + "," + data[j][0] + ")'></div>"
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
@@ -540,7 +541,7 @@
                                             tableCell1.setAttribute('class', 'strong_1')
                                             tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
                                             if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this," + sendBossName[6] + "," + data[j][0] + ")'></div>"
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
@@ -567,7 +568,7 @@
                                             tableCell1.setAttribute('class', 'strong_1')
                                             tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
                                             if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this," + sendBossName[7] + "," + data[j][0] + ")'></div>"
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
@@ -606,16 +607,19 @@
                         fetch("https://3359jun.pythonanywhere.com/searchPartyAll/" + getCookie(origin)).then((response) => response.json())
                             .then((data) => createPage(data));
 
-                        function buttonClick(checkBox) {
+                        function buttonClick(checkBox, bossName, userName) {
+                            console.log(checkBox.value)
+                            console.log(bossName)
+                            console.log(userName)
+                            // if (checkBox.value == true) {
 
-                            if (checkBox.value == true) {
-                                //완료
-                                fetch("https://3359jun.pythonanywhere.com/searchParty/?bossName=" + getSendBossName(thisObject.cells[3].innerHTML) + "&partyNum=" + thisObject.cells[4].innerHTML).then((response) => response.json())
-                                    .then((data) => createPartyModalBody(data, partyModalBody));
-                            }
-                            else {
-                                //취소
-                            }
+                            //     //완료
+                            //     // fetch("https://3359jun.pythonanywhere.com/clearGET/?bossName=" + bossName + "&userName=" + partyNum).then((response) => response.json())
+                            //     //     .then((data) => console.log(data));
+                            // }
+                            // else {
+                            //     //취소
+                            // }
 
                         }
                     </script>
