@@ -389,7 +389,7 @@
                                                 tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
                                             }
                                             //수정해야함
-                                            else if (data[j][i] == 990) {
+                                            else if (data[j][i] > 99) {
                                                 tableCell1.innerHTML = "완료"
                                             }
                                             else {
@@ -416,7 +416,7 @@
                                                 tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
                                             }
                                             //수정해야함
-                                            else if (data[j][i] == 990) {
+                                            else if (data[j][i] > 99) {
                                                 tableCell1.innerHTML = "완료"
                                             }
                                             else {
@@ -442,7 +442,7 @@
                                                 tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
                                             }
                                             //수정해야함
-                                            else if (data[j][i] == 990) {
+                                            else if (data[j][i] > 99) {
                                                 tableCell1.innerHTML = "완료"
                                             }
                                             else {
@@ -469,7 +469,7 @@
                                                 tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
                                             }
                                             //수정해야함
-                                            else if (data[j][i] == 990) {
+                                            else if (data[j][i] > 99) {
                                                 tableCell1.innerHTML = "완료"
                                             }
                                             else {
@@ -493,7 +493,7 @@
                                                 tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
                                             }
                                             //수정해야함
-                                            else if (data[j][i] == 990) {
+                                            else if (data[j][i] > 99) {
                                                 tableCell1.innerHTML = "완료"
                                             }
                                             else {
@@ -519,7 +519,7 @@
                                                 tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
                                             }
                                             //수정해야함
-                                            else if (data[j][i] == 990) {
+                                            else if (data[j][i] > 99) {
                                                 tableCell1.innerHTML = "완료"
                                             }
                                             else {
@@ -543,7 +543,7 @@
                                                 tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
                                             }
                                             //수정해야함
-                                            else if (data[j][i] == 990) {
+                                            else if (data[j][i] > 99) {
                                                 tableCell1.innerHTML = "완료"
                                             }
                                             else {
@@ -570,7 +570,7 @@
                                                 tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault'></div>"
                                             }
                                             //수정해야함
-                                            else if (data[j][i] == 990) {
+                                            else if (data[j][i] > 99) {
                                                 tableCell1.innerHTML = "완료"
                                             }
                                             else {
@@ -592,8 +592,31 @@
 
 
                         }
-                        fetch("https://3359jun.pythonanywhere.com/searchPartyAll/" + 0).then((response) => response.json())
+                        function getCookie(c_name) {
+                            var i, x, y, ARRcookies = document.cookie.split(";");
+                            for (i = 0; i < ARRcookies.length; i++) {
+                                x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                                y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+                                x = x.replace(/^\s+|\s+$/g, "");
+                                if (x == c_name) {
+                                    return unescape(y);
+                                }
+                            }
+                        }
+                        fetch("https://3359jun.pythonanywhere.com/searchPartyAll" + getCookie("origin")).then((response) => response.json())
                             .then((data) => createPage(data));
+
+                        function buttonClick(checkBox) {
+
+                            if (checkBox.value == true) {
+                                fetch("https://3359jun.pythonanywhere.com/searchParty/?bossName=" + getSendBossName(thisObject.cells[3].innerHTML) + "&partyNum=" + thisObject.cells[4].innerHTML).then((response) => response.json())
+                                    .then((data) => createPartyModalBody(data, partyModalBody));
+                            }
+                            else {
+
+                            }
+
+                        }
                     </script>
                     <table id="partyTable" class="table table-striped table-bordered" style="width:100%">
                         <tr id=name>
