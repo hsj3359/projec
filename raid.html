@@ -603,7 +603,7 @@
                                 }
                             }
                         }
-                        fetch("https://3359jun.pythonanywhere.com/searchPartyAll" + getCookie("origin")).then((response) => response.json())
+                        fetch("https://3359jun.pythonanywhere.com/searchPartyAll" + getCookie(origin)).then((response) => response.json())
                             .then((data) => createPage(data));
 
                         function buttonClick(checkBox) {
