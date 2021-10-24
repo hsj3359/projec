@@ -393,7 +393,7 @@
                                             var tableCell1 = tableRow.insertCell()
                                             tableCell1.setAttribute('class', 'strong_1')
                                             if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this, '{0}', '{1}' )'></div>".format(sendBossName[0], data[j][0])
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick=buttonClick(this, '{0}', '{1}' )></div>".format(sendBossName[0], data[j][0])
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
