@@ -390,7 +390,7 @@
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "완료"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
                                             }
                                             else {
                                                 tableCell1.innerHTML = data[j][i]
@@ -417,7 +417,7 @@
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "완료"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
                                             }
                                             else {
                                                 tableCell1.innerHTML = data[j][i]
@@ -443,7 +443,7 @@
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "완료"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
                                             }
                                             else {
                                                 tableCell1.innerHTML = data[j][i]
@@ -470,7 +470,7 @@
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "완료"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
                                             }
                                             else {
                                                 tableCell1.innerHTML = data[j][i]
@@ -494,7 +494,7 @@
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "완료"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
                                             }
                                             else {
                                                 tableCell1.innerHTML = data[j][i]
@@ -520,7 +520,7 @@
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "완료"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
                                             }
                                             else {
                                                 tableCell1.innerHTML = data[j][i]
@@ -544,7 +544,7 @@
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "완료"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
                                             }
                                             else {
                                                 tableCell1.innerHTML = data[j][i]
@@ -571,7 +571,7 @@
                                             }
                                             //수정해야함
                                             else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "완료"
+                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
                                             }
                                             else {
                                                 tableCell1.innerHTML = data[j][i]
@@ -609,11 +609,12 @@
                         function buttonClick(checkBox) {
 
                             if (checkBox.value == true) {
+                                //완료
                                 fetch("https://3359jun.pythonanywhere.com/searchParty/?bossName=" + getSendBossName(thisObject.cells[3].innerHTML) + "&partyNum=" + thisObject.cells[4].innerHTML).then((response) => response.json())
                                     .then((data) => createPartyModalBody(data, partyModalBody));
                             }
                             else {
-
+                                //취소
                             }
 
                         }
