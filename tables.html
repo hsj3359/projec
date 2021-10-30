@@ -758,7 +758,7 @@
         function makeOption(selectObject) {
 
             modalBody = document.getElementById("partyMakeModalBody")
-            while (modalBody.hasChildNodes()) { modalBody.removeChild(cell.firstChild); }
+            while (modalBody.hasChildNodes()) { modalBody.removeChild(modalBody.firstChild); }
             num = getIndex(selectObject)
             if (idx == 0 || idx == 5) {
                 for (var i = 0; i < 4; i++) {
