@@ -754,6 +754,15 @@
 
 
     <!-- party make Modal-->
+    <script>
+        function makeOption() {
+            modalBody = document.getElementById("partyMakeModalBody")
+            select = document.createElement("select")
+            select.setAttribute("class", "form-control")
+            modalBody.appendChild(select)
+
+        }
+    </script>
     <div class="modal fade" id="partyMakeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -764,27 +773,24 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body" id="partyModalBody">
-                    <div class="modal-body" id="partyModalBody">
-                        <select class="form-control">
-                            <option>전체</option>
-                            <option>오레하</option>
-                            <option>아르고스</option>
-                            <option>발탄 노말</option>
-                            <option>비아키스 노말</option>
-                            <option>발탄 하드</option>
-                            <option>비아키스 하드</option>
-                            <option>쿠크세이튼</option>
-                            <option>아브렐슈드</option>
-                        </select>
-                        <select class="form-control">
+                <div class="modal-body" id="partyMakeModalBody">
+                    <select class="form-control" onchange="makeOption()">
+                        <option>전체</option>
+                        <option>오레하</option>
+                        <option>아르고스</option>
+                        <option>발탄 노말</option>
+                        <option>비아키스 노말</option>
+                        <option>발탄 하드</option>
+                        <option>비아키스 하드</option>
+                        <option>쿠크세이튼</option>
+                        <option>아브렐슈드</option>
+                    </select>
+                    <select class="form-control userList">
 
-                        </select>
-                    </div>
+                    </select>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" data-dismiss="modal"
-                        onclick="partyClear()">완료</button>
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">완료</button>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">닫기</button>
                 </div>
             </div>
