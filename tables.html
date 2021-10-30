@@ -755,11 +755,25 @@
 
     <!-- party make Modal-->
     <script>
-        function makeOption() {
+        function makeOption(selectObject) {
+
             modalBody = document.getElementById("partyMakeModalBody")
-            select = document.createElement("select")
-            select.setAttribute("class", "form-control")
-            modalBody.appendChild(select)
+            while (modalBody.hasChildNodes()) { modalBody.removeChild(cell.firstChild); }
+            num = getIndex(selectObject)
+            if (idx == 0 || idx == 5) {
+                for (var i = 0; i < 4; i++) {
+                    select = document.createElement("select")
+                    select.setAttribute("class", "form-control")
+                    modalBody.appendChild(select)
+                }
+            }
+            else {
+                for (var i = 0; i < 8; i++) {
+                    select = document.createElement("select")
+                    select.setAttribute("class", "form-control")
+                    modalBody.appendChild(select)
+                }
+            }
 
         }
     </script>
@@ -772,10 +786,7 @@
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
-                </div>
-                <div class="modal-body" id="partyMakeModalBody">
-                    <select class="form-control" onchange="makeOption()">
-                        <option>전체</option>
+                    <select class="form-control" onchange="makeOption(this)">
                         <option>오레하</option>
                         <option>아르고스</option>
                         <option>발탄 노말</option>
@@ -785,9 +796,11 @@
                         <option>쿠크세이튼</option>
                         <option>아브렐슈드</option>
                     </select>
-                    <select class="form-control userList">
+                </div>
 
-                    </select>
+                <div class="modal-body" id="partyMakeModalBody">
+
+
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" data-dismiss="modal">완료</button>
