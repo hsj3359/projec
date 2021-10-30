@@ -362,7 +362,25 @@
                                 formatted = formatted.replace("{" + arg + "}", arguments[arg]);
                             }
                             return formatted;
-                        }; function createPage(data) {
+                        };
+                        function addCheckBox(bossName, userName, partyNum) {
+                            var tableRow = document.getElementById(bossName)
+                            var tableCell1 = tableRow.insertCell()
+                            tableCell1.setAttribute('class', 'strong_1')
+                            if (partyNum == 0) {
+                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' id='flexCheckDefault' onclick='buttonClick(this, {0}, {1},{2} )'></div>".format('"' + bossName + '"', '"' + userName + '"', '"' + partyNum + '"')
+                            }
+                            //수정해야함
+                            else if (partyNum > 99) {
+                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' id='flexCheckDefault' checked onclick='buttonClick(this, {0}, {1},{2} )'></div>".format('"' + bossName + '"', '"' + userName + '"', '"' + partyNum + '"')
+                            }
+                            else {
+                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' id='flexCheckDefault' onclick='buttonClick(this, {0}, {1},{2} )'></div>".format('"' + bossName + '"', '"' + userName + '"', '"' + partyNum + '"')
+
+                            }
+
+                        }
+                        function createPage(data) {
                             console.log(data)
                             for (var i = 0; i < data[0].length; i++) {
                                 for (var j = 0; j < data.length; j++) {
@@ -389,49 +407,23 @@
                                     }
                                     else if (i == 3) {
                                         if (data[j][1] >= 1325) {
-                                            var tableRow = document.getElementById("oreha")
-                                            var tableCell1 = tableRow.insertCell()
-                                            tableCell1.setAttribute('class', 'strong_1')
-                                            if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick=buttonClick(this, '{0}', '{1}' )></div>".format(sendBossName[0], data[j][0])
-                                            }
-                                            //수정해야함
-                                            else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
-                                            }
-                                            else {
-                                                tableCell1.innerHTML = data[j][i]
-                                            }
+                                            addCheckBox(sendBossName[0], data[j][0], data[j][i])
 
                                         }
                                         else {
-                                            var tableRow = document.getElementById("oreha")
+                                            var tableRow = document.getElementById(sendBossName[0])
                                             var tableCell1 = tableRow.insertCell()
                                             tableCell1.setAttribute('class', 'strong_1')
-
                                         }
 
 
                                     }
                                     else if (i == 4) {
                                         if (data[j][1] >= 1370) {
-                                            var tableRow = document.getElementById("argos")
-                                            var tableCell1 = tableRow.insertCell()
-                                            tableCell1.setAttribute('class', 'strong_1')
-                                            tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
-                                            if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick=buttonClick(this, '{0}', '{1}' )></div>".format(sendBossName[1], data[j][0])
-                                            }
-                                            //수정해야함
-                                            else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
-                                            }
-                                            else {
-                                                tableCell1.innerHTML = data[j][i]
-                                            }
+                                            addCheckBox(sendBossName[1], data[j][0], data[j][i])
                                         }
                                         else {
-                                            var tableRow = document.getElementById("argos")
+                                            var tableRow = document.getElementById(sendBossName[1])
                                             var tableCell1 = tableRow.insertCell()
                                             tableCell1.setAttribute('class', 'strong_1')
 
@@ -441,24 +433,11 @@
                                     }
                                     else if (i == 5) {
                                         if (data[j][1] >= 1415 && data[j][1] < 1445) {
-                                            var tableRow = document.getElementById("baltan")
-                                            var tableCell1 = tableRow.insertCell()
-                                            tableCell1.setAttribute('class', 'strong_1')
-                                            tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
-                                            if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this, '{0}', '{1}' )'></div>".format(sendBossName[2], data[j][0])
-                                            }
-                                            //수정해야함
-                                            else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked onclick='buttonClick(this, '{0}', '{1}' )'></div>".format(sendBossName[2], data[j][0])
-                                            }
-                                            else {
-                                                tableCell1.innerHTML = data[j][i]
-                                            }
+                                            addCheckBox(sendBossName[2], data[j][0], data[j][i])
                                         }
 
                                         else {
-                                            var tableRow = document.getElementById("baltan")
+                                            var tableRow = document.getElementById(sendBossName[2])
                                             var tableCell1 = tableRow.insertCell()
                                             tableCell1.setAttribute('class', 'strong_1')
 
@@ -468,23 +447,10 @@
                                     }
                                     else if (i == 6) {
                                         if (data[j][1] >= 1430 && data[j][1] < 1460) {
-                                            var tableRow = document.getElementById("viakiss")
-                                            var tableCell1 = tableRow.insertCell()
-                                            tableCell1.setAttribute('class', 'strong_1')
-                                            tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
-                                            if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this, '{0}', '{1}' )'></div>".format(sendBossName[3], data[j][0])
-                                            }
-                                            //수정해야함
-                                            else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
-                                            }
-                                            else {
-                                                tableCell1.innerHTML = data[j][i]
-                                            }
+                                            addCheckBox(sendBossName[3], data[j][0], data[j][i])
                                         }
                                         else {
-                                            var tableRow = document.getElementById("viakiss")
+                                            var tableRow = document.getElementById(sendBossName[3])
                                             var tableCell1 = tableRow.insertCell()
                                             tableCell1.setAttribute('class', 'strong_1')
 
@@ -492,23 +458,10 @@
                                     }
                                     else if (i == 7) {
                                         if (data[j][1] >= 1445) {
-                                            var tableRow = document.getElementById("baltanHard")
-                                            var tableCell1 = tableRow.insertCell()
-                                            tableCell1.setAttribute('class', 'strong_1')
-                                            tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
-                                            if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this, '{0}', '{1}' )'></div>".format(sendBossName[4], data[j][0])
-                                            }
-                                            //수정해야함
-                                            else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
-                                            }
-                                            else {
-                                                tableCell1.innerHTML = data[j][i]
-                                            }
+                                            addCheckBox(sendBossName[4], data[j][0], data[j][i])
                                         }
                                         else {
-                                            var tableRow = document.getElementById("baltanHard")
+                                            var tableRow = document.getElementById(sendBossName[4])
                                             var tableCell1 = tableRow.insertCell()
                                             tableCell1.setAttribute('class', 'strong_1')
 
@@ -518,23 +471,10 @@
                                     }
                                     else if (i == 8) {
                                         if (data[j][1] >= 1460) {
-                                            var tableRow = document.getElementById("viakissHard")
-                                            var tableCell1 = tableRow.insertCell()
-                                            tableCell1.setAttribute('class', 'strong_1')
-                                            tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
-                                            if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this, '{0}', '{1}' )'></div>".format(sendBossName[5], data[j][0])
-                                            }
-                                            //수정해야함
-                                            else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
-                                            }
-                                            else {
-                                                tableCell1.innerHTML = data[j][i]
-                                            }
+                                            addCheckBox(sendBossName[5], data[j][0], data[j][i])
                                         }
                                         else {
-                                            var tableRow = document.getElementById("viakissHard")
+                                            var tableRow = document.getElementById(sendBossName[5])
                                             var tableCell1 = tableRow.insertCell()
                                             tableCell1.setAttribute('class', 'strong_1')
 
@@ -542,23 +482,10 @@
                                     }
                                     else if (i == 9) {
                                         if (data[j][1] >= 1475) {
-                                            var tableRow = document.getElementById("kukusaten")
-                                            var tableCell1 = tableRow.insertCell()
-                                            tableCell1.setAttribute('class', 'strong_1')
-                                            tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
-                                            if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this, '{0}', '{1}' )'></div>".format(sendBossName[6], data[j][0])
-                                            }
-                                            //수정해야함
-                                            else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
-                                            }
-                                            else {
-                                                tableCell1.innerHTML = data[j][i]
-                                            }
+                                            addCheckBox(sendBossName[6], data[j][0], data[j][i])
                                         }
                                         else {
-                                            var tableRow = document.getElementById("kukusaten")
+                                            var tableRow = document.getElementById(sendBossName[6])
                                             var tableCell1 = tableRow.insertCell()
                                             tableCell1.setAttribute('class', 'strong_1')
                                             tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
@@ -569,23 +496,10 @@
                                     }
                                     else {
                                         if (data[j][1] >= 1490) {
-                                            var tableRow = document.getElementById("abrellshude")
-                                            var tableCell1 = tableRow.insertCell()
-                                            tableCell1.setAttribute('class', 'strong_1')
-                                            tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
-                                            if (data[j][i] == 0) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' onclick='buttonClick(this, '{0}', '{1}' )'></div>".format(sendBossName[7], data[j][0])
-                                            }
-                                            //수정해야함
-                                            else if (data[j][i] > 99) {
-                                                tableCell1.innerHTML = "<div class='form-check'><input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' checked></div>"
-                                            }
-                                            else {
-                                                tableCell1.innerHTML = data[j][i]
-                                            }
+                                            addCheckBox(sendBossName[7], data[j][0], data[j][i])
                                         }
                                         else {
-                                            var tableRow = document.getElementById("abrellshude")
+                                            var tableRow = document.getElementById(sendBossName[7])
                                             var tableCell1 = tableRow.insertCell()
                                             tableCell1.setAttribute('class', 'strong_1')
                                             tableCell1.setAttribute('id', (i + 1) + "/" + (j + 1))
@@ -613,19 +527,36 @@
                         fetch("https://3359jun.pythonanywhere.com/searchPartyAll/" + getCookie(origin)).then((response) => response.json())
                             .then((data) => createPage(data));
 
-                        function buttonClick(checkBox, bossName, userName) {
-                            console.log(checkBox.value)
-                            console.log(bossName)
-                            console.log(userName)
-                            // if (checkBox.value == true) {
+                        function buttonClick(checkBox, bossName, userName, partyNum) {
 
-                            //     //완료
-                            //     // fetch("https://3359jun.pythonanywhere.com/clearGET/?bossName=" + bossName + "&userName=" + partyNum).then((response) => response.json())
-                            //     //     .then((data) => console.log(data));
-                            // }
-                            // else {
-                            //     //취소
-                            // }
+                            if (checkBox.checked == true) {
+                                if (partyNum == 0) {
+                                    //개인
+                                    fetch("https://3359jun.pythonanywhere.com/clearGETtheName/?bossName=" + bossName + "&userName=" + userName).then((response) => response.json())
+                                        .then((data) => console.log(0));
+                                }
+                                else {
+                                    //파티
+                                    fetch("https://3359jun.pythonanywhere.com/clearGET/?bossName=" + bossName + "&partyNum=" + partyNum).then((response) => response.json())
+                                        .then((data) => console.log(0));
+                                }
+                                //완료
+
+                            }
+                            else {
+                                //취소
+                                if (partyNum == 990) {
+                                    //개인
+                                    fetch("https://3359jun.pythonanywhere.com/removeGETtheName/?bossName=" + bossName + "&userName=" + userName).then((response) => response.json())
+                                        .then((data) => console.log(0));
+                                }
+                                else {
+                                    //파티
+                                    fetch("https://3359jun.pythonanywhere.com/removeGET/?bossName=" + bossName + "&partyNum=" + partyNum).then((response) => response.json())
+                                        .then((data) => console.log(0));
+                                }
+                                //완료
+                            }
 
                         }
                     </script>
@@ -645,10 +576,10 @@
                         <tr id="argos">
                             <td>아르고스</td>
                         </tr>
-                        <tr id="baltan">
+                        <tr id="baltanNomal">
                             <td>발탄</td>
                         </tr>
-                        <tr id="viakiss">
+                        <tr id="viakissNomal">
                             <td>비아키스</td>
                         </tr>
                         <tr id="baltanHard">

@@ -369,7 +369,9 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">주간 레이드
+                            <h6 class="m-0 font-weight-bold text-primary" float:left>
+                                <div>주간 레이드</div>
+
                             </h6>
 
                         </div>
@@ -405,7 +407,7 @@
                                 }
 
                             }
-                            //수정
+                            수정
                             var sendBossName = ["oreha", "argos", "baltanNomal", "viakissNomal", "baltanHard", "viakissHard", "kukusaten", "abrellshude"]
                             var BossNameByKor = ["오레하", "아르고스", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드", "쿠크세이튼", "아브렐슈드"]
                             function resetTable() {
@@ -590,17 +592,26 @@
                                 }
                                 return true
                             }
-                            function getIndex(objectID) {
-                                var x = document.getElementById(objectID).selectedIndex;
+                            function getIndex(selectObject) {
+                                var x = selectObject.selectedIndex;
 
-                                var y = document.getElementById(objectID).options;
+                                var y = selectObject.options;
 
-                                var idx
+                                var idx = y[x].index;
+                                return idx
+
+                            }
+                            function makeParytModalOption() {
+
+
+                            }
+                            function makeBossTable(objectID) {
+
                                 var selectName
-
+                                var idx = getIndex(document.getElementById(objectID))
 
                                 if (objectID == "bossSelect") {
-                                    idx = y[x].index;
+
                                     if (idx == 0) {
                                         if (getCookie(origin) == "*") {
                                             fetch("https://3359jun.pythonanywhere.com/searchPartyALL").then((response) => response.json())
@@ -653,7 +664,7 @@
                                         <th>
 
                                             <select class="form-control" id="nameCombo"
-                                                onchange="getIndex('nameCombo')">
+                                                onchange="makeBossTable('nameCombo')">
                                             </select>
                                         </th>
                                         <th>레벨</th>
@@ -661,7 +672,7 @@
                                         <th>
 
                                             <select class="form-control" id="bossSelect"
-                                                onchange="getIndex('bossSelect')">
+                                                onchange="makeBossTable('bossSelect')">
                                                 <option>전체</option>
                                                 <option>오레하</option>
                                                 <option>아르고스</option>
@@ -683,6 +694,13 @@
                                 <tbody id="partyTable">
 
                                 </tbody>
+                                <tfoot><button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                                        data-target="#partyMakeModal">
+                                        파티 만들기
+                                    </button>
+
+
+                                </tfoot>
                             </table>
 
                         </div>
@@ -735,6 +753,46 @@
         </div>
     </div>
 
+
+    <!-- party make Modal-->
+    <div class="modal fade" id="partyMakeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="partyMakeModalName">파티 만들기</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="partyModalBody">
+                    <div class="modal-body" id="partyModalBody">
+                        <select class="form-control">
+                            <option>전체</option>
+                            <option>오레하</option>
+                            <option>아르고스</option>
+                            <option>발탄 노말</option>
+                            <option>비아키스 노말</option>
+                            <option>발탄 하드</option>
+                            <option>비아키스 하드</option>
+                            <option>쿠크세이튼</option>
+                            <option>아브렐슈드</option>
+                        </select>
+                        <select class="form-control">
+
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal"
+                        onclick="partyClear()">완료</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- party Modal-->
     <div class="modal fade" id="partyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -746,9 +804,8 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body" id="partyModalBody">
 
-                </div>
+                <hr>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" data-dismiss="modal"
                         onclick="partyClear()">완료</button>
