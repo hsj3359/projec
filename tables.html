@@ -453,6 +453,7 @@
                                                 tableCell2.innerHTML = getBossName(tableData[i + 1])
                                                 var tableCell3 = tableRow.insertCell()
                                                 tableCell3.setAttribute("id", "" + tableData[i][j][2])
+
                                                 if (tableData[i][j][2] < 99) {
                                                     tableCell3.innerHTML = tableData[i][j][2]
                                                 }
@@ -555,7 +556,7 @@
                                                 var tableCell2 = tableRow.insertCell()
                                                 tableCell2.innerHTML = getBossName(tableData[i + 1])
                                                 var tableCell3 = tableRow.insertCell()
-                                                tableCell3.setAttribute("id", "" + tableData[i][j][2])
+                                                tableCell3.setAttribute("id", "" + tableData[i][j][3])
                                                 if (tableData[i][j][3] < 99) {
                                                     tableCell3.innerHTML = tableData[i][j][3]
                                                 }
@@ -826,7 +827,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
- <div class="modal-body" id="partyModalBody">
+                <div class="modal-body" id="partyModalBody">
 
 
                 </div>
