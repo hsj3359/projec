@@ -407,7 +407,7 @@
                                 }
 
                             }
-                            var sendBossName = ["oreha", "argos", "baltanNomal", "viakissNomal", "baltanHard", "viakissHard", "kukusaten", "abrellshude"]
+                            var sendBossName = ["oreha", "argos", "baltanNormal", "viakissNormal", "baltanHard", "viakissHard", "kukusaten", "abrellshude"]
                             var BossNameByKor = ["오레하", "아르고스", "발탄 노말", "비아키스 노말", "발탄 하드", "비아키스 하드", "쿠크세이튼", "아브렐슈드"]
                             function resetTable() {
                                 table = document.getElementById("partyTable")
@@ -520,10 +520,17 @@
                                 }
                                 bodyObject.appendChild(ul)
 
+
+
                             }
                             function showModal(thisObject) {
                                 var partyModalName = document.getElementById('partyModalName')
                                 partyModalName.innerHTML = thisObject.cells[3].innerHTML + " " + thisObject.cells[4].getAttribute("id") + "파티"
+                                var okButton = document.getElementById("partyModalOk")
+                                if (thisObject.cells[4].getAttribute("id") > 99) {
+                                    okButton.style.display = "none"
+                                }
+
                                 var partyModalBody = document.getElementById('partyModalBody')
                                 fetch("https://3359jun.pythonanywhere.com/searchParty/?bossName=" + getSendBossName(thisObject.cells[3].innerHTML) + "&partyNum=" + thisObject.cells[4].getAttribute("id")).then((response) => response.json())
                                     .then((data) => createPartyModalBody(data, partyModalBody));
@@ -587,6 +594,17 @@
                                     }
                                 }
                                 return 0
+                            }
+                            function cancelParty(partyNum) {
+                                if (partyNum < 99) {
+
+
+                                }
+                                else {
+
+
+                                }
+
                             }
                             function findBossName(name) {
                                 for (var i = 0; i < sendBossName.length; i++) {
@@ -833,7 +851,7 @@
                 </div>
                 <hr>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" data-dismiss="modal"
+                    <button id="partyModalOk" class="btn btn-primary" type="button" data-dismiss="modal"
                         onclick="partyClear()">완료</button>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">닫기</button>
                 </div>
